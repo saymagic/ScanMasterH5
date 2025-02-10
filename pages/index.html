@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码大师</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">扫码大师</h1>
+                <p class="text-xl text-gray-600">Scan, generate, and manage QR codes with ease</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="./scanner.html" class="transform hover:scale-105 transition-all duration-300">
+                    <div class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-6 text-center h-full">
+                        <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2m0 0H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h2 class="text-xl font-semibold mb-2">Scan QR Code</h2>
+                        <p class="text-sm">Quickly scan QR codes using your camera</p>
+                    </div>
+                </a>
+                <a href="../generator.html"  class="transform hover:scale-105 transition-all duration-300">
+                    <div class="bg-green-500 hover:bg-green-600 text-white rounded-lg p-6 text-center h-full">
+                        <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <h2 class="text-xl font-semibold mb-2">Generate QR Code</h2>
+                        <p class="text-sm">Create custom QR codes for any content</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+       
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/home.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

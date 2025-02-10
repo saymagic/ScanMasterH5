@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权限</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <!-- Header Section -->
+                <div class="flex items-center justify-between mb-8 border-b pb-6">
+                    <div class="flex items-center">
+                        <svg class="w-10 h-10 text-blue-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                        <div>
+                            <h1 class="text-3xl font-bold">应用权限说明</h1>
+                            <p class="text-gray-600 mt-1">最后更新：2025年1月16日</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Permission List -->
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h2 class="text-xl font-semibold mb-4">基础权限</h2>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="flex items-center">
+                                            <h3 class="font-semibold">相机权限</h3>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mt-1">用于扫描二维码</p>
+                                        <div class="mt-2 text-sm text-gray-500">
+                                            <h4 class="font-medium mb-1">使用说明:</h4>
+                                            <ul class="list-disc list-inside space-y-1">
+                                                <li>仅在扫描二维码时使用</li>
+                                                <li>不会后台运行</li>
+                                                <li>不会上传识别中信息至服务器</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0">
+                                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="flex items-center">
+                                                <h3 class="font-semibold">相机权限</h3>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">用于保存生成的二维码/识别用户选取的图片</p>
+                                            <div class="mt-2 text-sm text-gray-500">
+                                                <h4 class="font-medium mb-1">使用说明:</h4>
+                                                <ul class="list-disc list-inside space-y-1">
+                                                    <li>保存二维码图片到设备</li>
+                                                    <li>不会后台运行</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Footer -->
+                <div class="mt-12 pt-8 border-t">
+                    <div class="flex justify-between items-center">
+                        <p class="text-sm text-gray-500">我们会严格遵守权限使用规范，保护您的隐私</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}QR Code Helper Pro{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Legal Documents -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <!-- <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    法律文件
+                </h2> -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- User Agreement -->
+                    <a href="./agreements.html" class="block p-4 rounded-lg border hover:shadow-md transition-all duration-300 hover:border-blue-500">
+                        <div class="flex items-center">
+                            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <div class="ml-3">
+                                <h3 class="font-semibold text-gray-900">用户协议</h3>
+                                <p class="text-sm text-gray-500">服务使用条款及条件</p>
+                            </div>
+                        </div>
+                    </a>
+        
+                    <!-- Privacy Policy -->
+                    <a href="./privacy.html" class="block p-4 rounded-lg border hover:shadow-md transition-all duration-300 hover:border-blue-500">
+                        <div class="flex items-center">
+                            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            <div class="ml-3">
+                                <h3 class="font-semibold text-gray-900">隐私政策</h3>
+                                <p class="text-sm text-gray-500">我们如何保护您的数据</p>
+                            </div>
+                        </div>
+                    </a>
+        
+                    <!-- Third Party Information -->
+                    <a href="./third_party.html" class="block p-4 rounded-lg border hover:shadow-md transition-all duration-300 hover:border-blue-500">
+                        <div class="flex items-center">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <div class="ml-3">
+                                <h3 class="font-semibold text-gray-900">第三方信息共享清单</h3>
+                                <p class="text-sm text-gray-500">与第三方共享的信息</p>
+                            </div>
+                        </div>
+                    </a>
+        
+                    <!-- App Permissions -->
+                    <a href="./permissions.html" class="block p-4 rounded-lg border hover:shadow-md transition-all duration-300 hover:border-blue-500">
+                        <div class="flex items-center">
+                            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                            </svg>
+                            <div class="ml-3">
+                                <h3 class="font-semibold text-gray-900">应用权限说明</h3>
+                                <p class="text-sm text-gray-500">应用程序权限及其使用</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        
+            <!-- Privacy Settings -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    隐私设置
+                </h2>
+                <div class="mt-4">
+                    <div class="mt-4 bg-gray-50 p-4 rounded-md text-sm text-gray-600">
+                        <p class="mb-2">我们的隐私政策解释：</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>我们如何收集和使用您的数据</li>
+                            <li>我们如何存储和保护您的信息</li>
+                            <li>您对个人资料的权利</li>
+                        </ul>
+                        <a href="./privacy.html" class="text-blue-500 hover:text-blue-600 mt-2 inline-block">阅读完整隐私政策</a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Storage Management -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                    缓存设置
+                </h2>
+                <div class="mt-4">
+                    <p class="text-sm text-gray-600 mb-4">清除本地存储以释放空间并删除所有保存的QR码历史记录。</p>
+                    <button id="clear-storage" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors duration-200 flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        清除缓存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

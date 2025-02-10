@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码 - 扫码大师</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Scanner Interface -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h1 class="text-2xl font-bold mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2m0 0H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    二维码扫描器
+                </h1>
+                <p class="text-sm text-gray-600 mb-4">同时支持二维码和条形码</p>
+        
+                <!-- Scan Method Tabs -->
+                <div class="mb-6">
+                    <div class="flex border-b">
+                        <button class="tab-btn px-4 py-2 border-b-2 border-blue-500 text-blue-500" data-tab="camera">
+                            摄像头识别
+                        </button>
+                        <button class="tab-btn px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="upload">
+                            图片识别
+                        </button>
+                    </div>
+                </div>
+        
+                <!-- Camera Scanner -->
+                <div id="camera-tab" class="tab-content">
+                    <div class="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
+                        <video id="camera-preview" class="w-full h-full object-cover" playsinline></video>
+                        <div class="absolute inset-0 flex items-center justify-center" id="camera-overlay">
+                            <div class="w-48 h-48 border-2 border-blue-500 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center space-x-4">
+                        <button id="start-camera" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                           开启摄像头
+                        </button>
+                        <button id="switch-camera" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors duration-200" disabled>
+                            切换摄像头
+                        </button>
+                    </div>
+                </div>
+        
+                <!-- Image Upload -->
+                <div id="upload-tab" class="tab-content hidden">
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <input type="file" id="file-input" class="hidden" accept="image/*">
+                        <label for="file-input" class="cursor-pointer">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <p class="mt-2 text-sm text-gray-600">点击上传</p>
+                            <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Result Display -->
+            <div id="result-container" class="bg-white rounded-lg shadow-lg p-6 hidden">
+                <h2 class="text-xl font-bold mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    扫描结果
+                </h2>
+                <div class="bg-gray-50 rounded p-4">
+                    <p id="result-text" class="text-gray-800 break-all"></p>
+                </div>
+                <div class="mt-4 flex space-x-4">
+                    <button id="copy-result" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                        拷贝
+                    </button>
+                    <button id="save-result" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
+    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script src="../static/js/scanner.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

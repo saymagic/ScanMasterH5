@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史 - 扫码大师</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-6xl mx-auto">
+            <!-- Search and Filter Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
+                    <!-- Search -->
+                    <div class="flex-1">
+                        <div class="relative">
+                            <input type="text" id="search-input"
+                                   class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                   placeholder="按内容或类型搜索…">
+                            <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Type Filter -->
+                    <div class="w-full md:w-48">
+                        <select id="type-filter" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">所有内容</option>
+                            <option value="scanned">扫描</option>
+                            <option value="generated">生成</option>
+                        </select>
+                    </div>
+                    <!-- Favorite Filter -->
+                    <div class="w-full md:w-48">
+                        <select id="favorite-filter" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">所有类型</option>
+                            <option value="true">收藏</option>
+                            <option value="false">非收藏</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- QR Code List -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">内容</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="qr-list" class="bg-white divide-y divide-gray-200">
+                            <!-- QR codes will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Loading Indicator -->
+                <div id="loading-indicator" class="hidden py-8">
+                    <div class="flex justify-center">
+                        <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                </div>
+        
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden py-8">
+                    <div class="text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">暂无历史</h3>
+                        <p class="mt-1 text-sm text-gray-500">从扫描或生成QR码开始</p>
+                    </div>
+                </div>
+        
+                <!-- Pagination -->
+                <div id="pagination" class="hidden mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
+                    <div class="flex items-center">
+                        <select id="per-page" class="mr-2 border rounded-md text-sm">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="text-sm text-gray-700" id="pagination-info">
+                             展示 <span class="font-medium" id="showing-start">1</span>
+                            从 <span class="font-medium" id="showing-end">10</span>
+                            至 <span class="font-medium" id="total-items">20</span>结果
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="prev-page" class="px-3 py-1 border rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                            上一页
+                        </button>
+                        <button id="next-page" class="px-3 py-1 border rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                            下一页
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/history.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

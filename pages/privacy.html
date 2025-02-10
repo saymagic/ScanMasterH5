@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私信息</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <span class="font-bold text-xl">扫码大师</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <!-- Header Section -->
+                <div class="flex items-center justify-between mb-8 border-b pb-6">
+                    <div class="flex items-center">
+                        <svg class="w-10 h-10 text-blue-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <div>
+                            <h1 class="text-3xl font-bold">隐私政策</h1>
+                            <p class="text-gray-600 mt-1">最后更新：2025年1月16日</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Navigation -->
+                <div class="hidden lg:block sticky top-20 float-right ml-8 w-64 bg-gray-50 rounded-lg p-4">
+                    <nav class="space-y-1" id="privacy-nav">
+                        <a href="#introduction" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">引言</a>
+                        <a href="#information-collection" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">信息收集</a>
+                        <a href="#data-usage" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">数据使用</a>
+                        <a href="#data-storage" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">数据存储</a>
+                        <a href="#user-rights" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">用户权利</a>
+                        <a href="#contact" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">联系我们</a>
+                    </nav>
+                </div>
+        
+                <!-- Content -->
+                <div class="prose prose-lg max-w-none">
+                    <article class="space-y-8">
+                        <section id="introduction" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">引言</h2>
+                            <p>欢迎使用扫码大师。我们非常重视您的隐私保护，并致力于保护您的个人数据安全。本隐私政策详细说明了我们如何收集、使用和保护您的信息。</p>
+                        </section>
+                
+                        <section id="information-collection" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">信息收集</h2>
+                            <div class="bg-blue-50 rounded-lg p-6 mb-6">
+                                <h3 class="text-lg font-semibold mb-3">我们收集的信息</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>二维码内容数据</li>
+                                    <li>扫描历史记录</li>
+                                    <li>生成的二维码样式偏好</li>
+                                    <li>语言偏好设置</li>
+                                </ul>
+                            </div>
+                            <p>重要说明：所有数据均存储在您的设备本地，我们不会将任何数据上传至服务器。</p>
+                        </section>
+                
+                        <section id="data-usage" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">数据使用</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold mb-3">用途</h3>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>显示二维码历史记录</li>
+                                        <li>提供快速访问功能</li>
+                                        <li>保存个性化设置</li>
+                                        <li>改善用户体验</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-50 rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold mb-3">我们不会</h3>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>收集个人身份信息</li>
+                                        <li>分享数据给第三方</li>
+                                        <li>用于营销目的</li>
+                                        <li>跟踪用户行为</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                
+                        <section id="data-storage" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">数据存储</h2>
+                            <div class="bg-yellow-50 rounded-lg p-6 mb-6">
+                                <h3 class="text-lg font-semibold mb-3">存储方式</h3>
+                                <p>所有数据均使用浏览器的本地存储(LocalStorage)功能进行存储，这意味着：</p>
+                                <ul class="list-disc list-inside space-y-2 mt-4">
+                                    <li>数据仅保存在您的设备上</li>
+                                    <li>数据不会上传至云端</li>
+                                    <li>您可以随时清除数据</li>
+                                    <li>数据在浏览器清除缓存时会被删除</li>
+                                </ul>
+                            </div>
+                        </section>
+                
+                        <section id="user-rights" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">用户权利</h2>
+                            <div class="bg-purple-50 rounded-lg p-6">
+                                <p class="mb-4">作为用户，您拥有以下权利：</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="border border-purple-200 rounded p-4">
+                                        <h4 class="font-semibold mb-2">数据访问权</h4>
+                                        <ul class="list-disc list-inside text-sm">
+                                            <li>查看历史记录</li>
+                                            <li>导出数据</li>
+                                            <li>检查存储内容</li>
+                                        </ul>
+                                    </div>
+                                    <div class="border border-purple-200 rounded p-4">
+                                        <h4 class="font-semibold mb-2">数据控制权</h4>
+                                        <ul class="list-disc list-inside text-sm">
+                                            <li>删除特定记录</li>
+                                            <li>清除所有数据</li>
+                                            <li>修改个人设置</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                
+                        <section id="contact" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">联系我们</h2>
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <p class="mb-4">如果您对本隐私政策有任何疑问或建议，请通过以下方式联系我们：</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                        </svg>
+                                        <span>qrmaster@163.com</span>
+                                    </li>
+            
+                                </ul>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+        
+                <!-- Footer -->
+                <div class="mt-12 pt-8 border-t">
+                    <div class="flex justify-between items-center">
+                        <p class="text-sm text-gray-500">感谢您信任并使用扫码大师</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Smooth scrolling for navigation links
+            $('#privacy-nav a').click(function(e) {
+                e.preventDefault();
+                const target = $($(this).attr('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 100
+                    }, 500);
+                }
+            });
+        
+            // Highlight current section in navigation
+            const sections = $('h2');
+            $(window).scroll(_.throttle(function() {
+                let current = '';
+                sections.each(function() {
+                    if ($(window).scrollTop() >= $(this).offset().top - 200) {
+                        current = '#' + $(this).attr('id');
+                    }
+                });
+                $('#privacy-nav a').removeClass('bg-gray-100 text-blue-500');
+                $(`#privacy-nav a[href="${current}"]`).addClass('bg-gray-100 text-blue-500');
+            }, 100));
+        
+            // Fade in sections on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+        
+            document.querySelectorAll('h2, p, ul').forEach((el) => {
+                el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+                observer.observe(el);
+            });
+        });
+        </script>
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

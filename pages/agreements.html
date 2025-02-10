@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私协议</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <!-- Lodash -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        window.qrcode = qrcode;  // Make qrcode globally available
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="flex items-center space-x-2 {% if request.endpoint == 'home.index' %}text-blue-600{% endif %}">
+                    <img src="https://image.coze.run/?prompt=A modern and minimalist QR code logo design with gradient colors&image_size=square"
+                         alt="Logo" class="h-8 w-8">
+                    <span class="font-bold text-xl">QR Pro</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./scanner.html"  class="text-gray-600 hover:text-gray-900">扫码</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-gray-900">制作</a>
+                    <a href="./history.html" class="text-gray-600 hover:text-gray-900">历史</a>
+                    <a href="./settings.html" class="text-gray-600 hover:text-gray-900">设置</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="./scanner.html" class="block px-3 py-2 text-gray-600">扫码</a>
+                <a href="./generator.html" class="block px-3 py-2 text-gray-600">制作</a>
+                <a href="./history.html" class="block px-3 py-2 text-gray-600">历史</a>
+                <a href="./settings.html" class="block px-3 py-2 text-gray-600">设置</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <!-- Header Section -->
+                <div class="flex items-center justify-between mb-8 border-b pb-6">
+                    <div class="flex items-center">
+                        <svg class="w-10 h-10 text-blue-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <div>
+                            <h1 class="text-3xl font-bold">用户协议</h1>
+                            <p class="text-gray-600 mt-1">最后更新：2025年1月16日</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Navigation -->
+                <div class="hidden lg:block sticky top-20 float-right ml-8 w-64 bg-gray-50 rounded-lg p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3">快速导航</h3>
+                    <nav class="space-y-1" id="agreement-nav">
+                        <a href="#introduction" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">引言</a>
+                        <a href="#terms" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">使用条款</a>
+                        <a href="#account" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">账户条款</a>
+                        <a href="#content" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">内容条款</a>
+                        <a href="#liability" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">免责声明</a>
+                        <a href="#contact" class="block px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors">联系我们</a>
+                    </nav>
+                </div>
+        
+                <!-- Content -->
+                <div class="prose prose-lg max-w-none">
+                    <article class="space-y-8">
+                        <section id="introduction" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">引言</h2>
+                            <p>欢迎使用QR码助手专业版。在使用我们的服务之前，请仔细阅读本用户协议。使用我们的服务即表示您同意接受本协议的所有条款。</p>
+                        </section>
+                
+                        <section id="terms" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">使用条款</h2>
+                            <div class="space-y-4">
+                                <p>1. 本应用仅供个人非商业用途使用。</p>
+                                <p>2. 用户不得将本应用用于任何非法目的。</p>
+                                <p>3. 用户应遵守所有适用的法律法规。</p>
+                                <p>4. 我们保留随时修改服务内容的权利。</p>
+                            </div>
+                        </section>
+                
+                        <section id="account" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">账户条款</h2>
+                            <div class="space-y-4">
+                                <p>1. 用户须对其账户中的所有活动负责。</p>
+                                <p>2. 用户应妥善保管其账户信息。</p>
+                                <p>3. 如发现账户安全问题，请立即联系我们。</p>
+                            </div>
+                        </section>
+                
+                        <section id="content" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">内容条款</h2>
+                            <div class="space-y-4">
+                                <p>1. 用户生成的二维码内容应符合法律规定。</p>
+                                <p>2. 禁止生成包含违法、有害信息的二维码。</p>
+                                <p>3. 我们保留删除违规内容的权利。</p>
+                            </div>
+                        </section>
+                
+                        <section id="liability" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">免责声明</h2>
+                            <div class="space-y-4">
+                                <p>1. 本应用不对二维码内容的准确性负责。</p>
+                                <p>2. 用户应自行承担使用本服务的风险。</p>
+                                <p>3. 我们不对因使用本服务造成的损失负责。</p>
+                            </div>
+                        </section>
+                
+                        <section id="contact" class="mb-12">
+                            <h2 class="text-2xl font-bold mb-4">联系我们</h2>
+                            <p>如有任何问题，请通过以下方式联系我们：</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span>support@qrcodepro.com</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                    <span>400-123-4567</span>
+                                </div>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+        
+                <!-- Footer -->
+                <div class="mt-12 pt-8 border-t">
+                    <div class="flex justify-between items-center">
+                        <p class="text-sm text-gray-500">感谢您认真阅读并同意本用户协议</p>
+                    </div>
+                </div>
+            </div>
+        </div>    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2025 扫码大师. 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // Smooth scrolling for navigation links
+            $('#agreement-nav a').click(function(e) {
+                e.preventDefault();
+                const target = $($(this).attr('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 100
+                    }, 500);
+                }
+            });
+        
+            // Highlight current section in navigation
+            const sections = $('h2');
+            $(window).scroll(_.throttle(function() {
+                let current = '';
+                sections.each(function() {
+                    if ($(window).scrollTop() >= $(this).offset().top - 200) {
+                        current = '#' + $(this).attr('id');
+                    }
+                });
+                $('#agreement-nav a').removeClass('bg-gray-100 text-blue-500');
+                $(`#agreement-nav a[href="${current}"]`).addClass('bg-gray-100 text-blue-500');
+            }, 100));
+        
+            // Fade in sections on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+        
+            document.querySelectorAll('h2, p, ul').forEach((el) => {
+                el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+                observer.observe(el);
+            });
+        });
+        </script>
+    <script>
+        $(document).ready(function() {
+            $('#mobile-menu-button').click(function() {
+                $('#mobile-menu').toggleClass('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
